@@ -123,8 +123,15 @@ public class SBuild extends Builder {
 			}
 		}
 
-		String targetsToUse = env.expand(this.targets);
-		args.add(targetsToUse);
+		if (targets != null) {
+			String[] ts = targets.trim().split(" ");
+			for (String target : ts) {
+				target = env.expand(target.trim());
+				if (target.length() > 0) {
+					args.add(target);
+				}
+			}
+		}
 
 		if (!launcher.isUnix()) {
 			args = args.toWindowsCommand();
