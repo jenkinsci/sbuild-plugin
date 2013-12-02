@@ -4,8 +4,7 @@
 	<parent>
 		<groupId>org.jenkins-ci.plugins</groupId>
 		<artifactId>plugin</artifactId>
-		<version>1.509.4</version><!-- which version of Jenkins is this plugin 
-			built against? -->
+		<version>1.509.4</version>
 	</parent>
 
 	<groupId>org.jenkins-ci.plugins</groupId>
@@ -54,5 +53,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<developers>
+		<developer>
+			<id>tobiasroeser</id>
+			<name>Tobias Roeser</name>
+			<email>le.petit.fou@web.de</email>
+		</developer>
+	</developers>
 
 </project>
