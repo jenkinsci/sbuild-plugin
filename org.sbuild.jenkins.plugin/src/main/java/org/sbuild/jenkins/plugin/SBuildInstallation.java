@@ -1,4 +1,4 @@
-package sbuild;
+package org.sbuild.jenkins.plugin;
 
 import hudson.EnvVars;
 import hudson.Extension;
@@ -91,12 +91,12 @@ public class SBuildInstallation extends ToolInstallation implements
 
 		@Override
 		public SBuildInstallation[] getInstallations() {
-			return Jenkins.getInstance().getDescriptorByType(SBuildBuilder.DescriptorImpl.class).getInstallations();
+			return Jenkins.getInstance().getDescriptorByType(SBuild.DescriptorImpl.class).getInstallations();
 		}
 
 		@Override
 		public void setInstallations(SBuildInstallation... installations) {
-			Jenkins.getInstance().getDescriptorByType(SBuildBuilder.DescriptorImpl.class)
+			Jenkins.getInstance().getDescriptorByType(SBuild.DescriptorImpl.class)
 					.setInstallations(installations);
 		}
 

@@ -1,0 +1,14 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:entry title="SBuild Version" field="sbuildVersion"
+    description="Select the SBuild version to use for the build.">
+      <f:textbox />
+  </f:entry>
+  <f:entry title="Targets to run" field="targets"
+    description="Select the targets to run, separated by a space">
+    <f:textbox />
+  </f:entry>
+  <f:entry title="Buildfiles" field="buildFiles"
+    description="Select the buildfiles, or leave empty to use the default ('SBuild.scala').">
+    <f:textbox />
+  </f:entry>
+</j:jelly>

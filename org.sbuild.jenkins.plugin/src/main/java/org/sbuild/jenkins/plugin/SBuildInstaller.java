@@ -1,4 +1,4 @@
-package sbuild;
+package org.sbuild.jenkins.plugin;
 
 import java.io.IOException;
 import java.util.LinkedList;

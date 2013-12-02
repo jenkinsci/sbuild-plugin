@@ -1,4 +1,4 @@
-package sbuild;
+package org.sbuild.jenkins.plugin;
 
 import hudson.CopyOnWrite;
 import hudson.EnvVars;
@@ -14,25 +14,28 @@ import hudson.tasks.Builder;
 import hudson.util.ArgumentListBuilder;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.sbuild.jenkins.plugin.internal.Optional;
 
-public class SBuildBuilder extends Builder {
+public class SBuild extends Builder {
 
 	private final String sbuildVersion;
 
 	private final String targets;
 
-	private final String buildFile;
+	private final String buildFiles;
 
 	// Fields in config.jelly must match the parameter names in the
 	// "DataBoundConstructor"
 	@DataBoundConstructor
-	public SBuildBuilder(String sbuildVersion, String targets, String buildFile) {
+	public SBuild(String sbuildVersion, String targets, String buildFiles) {
 		this.sbuildVersion = sbuildVersion;
 		this.targets = targets;
-		this.buildFile = buildFile;
+		this.buildFiles = buildFiles;
 	}
 
 	public String getSbuildVersion() {
@@ -46,12 +49,16 @@ public class SBuildBuilder extends Builder {
 		return targets;
 	}
 
-	public SBuildInstallation getSBuild() {
-		for (SBuildInstallation sbuildInstallation : getDescriptor().getInstallations()) {
-			if (sbuildVersion != null && sbuildVersion.equals(sbuildInstallation.getName()))
-				return sbuildInstallation;
+	public Optional<SBuildInstallation> getSBuild() {
+		if (sbuildVersion != null && sbuildVersion.trim().length() > 0) {
+			for (SBuildInstallation sbuildInstallation : getDescriptor().getInstallations()) {
+				if (sbuildVersion.equals(sbuildInstallation.getName()))
+					return Optional.some(sbuildInstallation);
+			}
+			return Optional.some(null);
+		} else {
+			return Optional.none();
 		}
-		return null;
 	}
 
 	@Override
@@ -64,32 +71,56 @@ public class SBuildBuilder extends Builder {
 		final Map<String, String> buildVariables = build.getBuildVariables();
 		env.overrideAll(buildVariables);
 
-		SBuildInstallation sbuildInstallation = getSBuild();
-		if (sbuildInstallation != null) {
-			sbuildInstallation = sbuildInstallation.forNode(Computer.currentComputer().getNode(), listener);
-			sbuildInstallation = sbuildInstallation.forEnvironment(env);
-			final String exe = sbuildInstallation.getExecutable(launcher);
+		Optional<SBuildInstallation> sbuildInstallation = getSBuild();
+		if (sbuildInstallation.isDefined()) {
+			SBuildInstallation installation = sbuildInstallation.get();
+			if (installation == null) {
+				listener.fatalError("Could not find the configured SBuild version \"" + sbuildVersion.trim() + "\".");
+				return false;
+			}
+			installation = installation.forNode(Computer.currentComputer().getNode(), listener);
+			installation = installation.forEnvironment(env);
+			final String exe = installation.getExecutable(launcher);
 			if (exe == null) {
 				listener.fatalError("SBuild executable for configured version \"" + sbuildVersion + "\" not found.");
 				return false;
 			}
 			args.add(exe);
 		} else {
+			listener.getLogger()
+					.println(
+							"WARNING: Using preinstalled SBuild installation from host system. This might give unexpected and unreproducable results.");
 			args.add(launcher.isUnix() ? "sbuild" : "sbuild.bat");
 		}
 
 		args.add("--no-color");
 
-		final String buildFileToUse;
-		if (buildFile != null && buildFile.trim().length() > 0) {
-			buildFileToUse = env.expand(buildFile);
-			args.add("--buildfile", buildFileToUse);
-		} else {
-			buildFileToUse = "SBuild.scala";
+		final List<String> buildFilesToUse = new LinkedList<String>();
+		if (buildFiles != null) {
+			String[] files = buildFiles.trim().split(" ");
+			boolean firstFile = true;
+			for (String file : files) {
+				file = env.expand(file.trim());
+				if (file.length() > 0) {
+					buildFilesToUse.add(file);
+					if (firstFile) {
+						args.add("--buildfile", file);
+						firstFile = false;
+					} else {
+						args.add("--additional-buildfile", file);
+					}
+				}
+			}
 		}
-		FilePath buildFilePath = build.getModuleRoot().child(buildFileToUse);
-		if (!buildFilePath.exists()) {
-			listener.fatalError("Unabled to find buildfile at " + buildFilePath);
+		if (buildFilesToUse.isEmpty()) {
+			buildFilesToUse.add("SBuild.scala");
+		}
+
+		for (String file : buildFilesToUse) {
+			FilePath buildFilePath = build.getModuleRoot().child(file);
+			if (!buildFilePath.exists()) {
+				listener.fatalError("Unabled to find buildfile at " + buildFilePath);
+			}
 		}
 
 		String targetsToUse = env.expand(this.targets);
@@ -99,14 +130,7 @@ public class SBuildBuilder extends Builder {
 			args = args.toWindowsCommand();
 		}
 
-		// long startTime = System.currentTimeMillis();
-
 		int res = launcher.launch().cmds(args).envs(env).stdout(listener).pwd(build.getModuleRoot()).join();
-
-		// if(sbuildInstallation == null && (System.currentTimeMillis() -
-		// startTime) < 1000) {
-		//
-		// }
 
 		if (res != 0) {
 			listener.fatalError("SBuild return with return code: " + res);
@@ -133,7 +157,7 @@ public class SBuildBuilder extends Builder {
 			load();
 		}
 
-		protected DescriptorImpl(Class<? extends SBuildBuilder> clazz) {
+		protected DescriptorImpl(Class<? extends SBuild> clazz) {
 			super(clazz);
 		}
 
