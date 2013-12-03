@@ -54,6 +54,7 @@
 		</plugins>
 	</build>
 
+	<url>http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin</url>
 	<developers>
 		<developer>
 			<id>tobiasroeser</id>

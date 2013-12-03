@@ -2,3 +2,7 @@
 
 This Jenkins plugin enables support for SBuild projects and allows Jenkins to directly execute SBuild targets.
 
+SBuild: http://sbuild.tototec.de
+
+Plugin Home page: http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin
+
