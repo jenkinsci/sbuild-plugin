@@ -1,4 +1,4 @@
-Jenkins SBuild Plugin 0.0.2:
+Jenkins SBuild Plugin 0.1.0 - 2013-12-03:
 
 * Improved handling of SBuild installations.
 * Support multiple buildfiles.
