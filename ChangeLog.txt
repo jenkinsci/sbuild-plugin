@@ -1,3 +1,7 @@
+Jenkins SBuild Plugin 0.1.1 - 2013-12-04:
+
+(no changes, only fighting with maven-relase-plugin)
+
 Jenkins SBuild Plugin 0.1.0 - 2013-12-03:
 
 * Improved handling of SBuild installations.
