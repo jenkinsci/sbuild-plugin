@@ -7,7 +7,7 @@
 	</parent>
 
 	<artifactId>SBuild</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 
 	<!-- get every artifact through repo.jenkins-ci.org, which proxies all the 
