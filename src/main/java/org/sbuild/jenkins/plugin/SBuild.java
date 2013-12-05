@@ -14,9 +14,12 @@ import hudson.tasks.Builder;
 import hudson.util.ArgumentListBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.sbuild.jenkins.plugin.internal.Optional;
@@ -105,10 +108,10 @@ public class SBuild extends Builder {
 
 		final List<String> buildFilesToUse = new LinkedList<String>();
 		if (buildFiles != null) {
-			String[] files = buildFiles.trim().split(" ");
+			List<String> files = splitArgs(buildFiles);
 			boolean firstFile = true;
 			for (String file : files) {
-				file = env.expand(file.trim());
+				file = env.expand(file);
 				if (file.length() > 0) {
 					buildFilesToUse.add(file);
 					if (firstFile) {
@@ -124,7 +127,6 @@ public class SBuild extends Builder {
 			buildFilesToUse.add("SBuild.scala");
 		}
 
-		// TODO: Better split
 		for (String file : buildFilesToUse) {
 			FilePath buildFilePath = build.getModuleRoot().child(file);
 			if (!buildFilePath.exists()) {
@@ -132,22 +134,20 @@ public class SBuild extends Builder {
 			}
 		}
 
-		// TODO: Better split
 		if (options != null) {
-			String[] ts = options.trim().split(" ");
+			List<String> ts = splitArgs(options);
 			for (String target : ts) {
-				target = env.expand(target.trim());
+				target = env.expand(target);
 				if (target.length() > 0) {
 					args.add(target);
 				}
 			}
 		}
 
-		// TODO: Better split
 		if (targets != null) {
-			String[] ts = targets.trim().split(" ");
+			List<String> ts = splitArgs(targets);
 			for (String target : ts) {
-				target = env.expand(target.trim());
+				target = env.expand(target);
 				if (target.length() > 0) {
 					args.add(target);
 				}
@@ -165,6 +165,22 @@ public class SBuild extends Builder {
 		}
 
 		return res == 0;
+	}
+
+	private static Pattern splitQuotedParams = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+
+	protected List<String> splitArgs(String s) {
+		List<String> result = new ArrayList<String>();
+		Matcher matcher = splitQuotedParams.matcher(s);
+		while (matcher.find()) {
+			if (matcher.group(1) != null)
+				result.add(matcher.group(1));
+			else if (matcher.group(2) != null)
+				result.add(matcher.group(2));
+			else
+				result.add(matcher.group());
+		}
+		return result;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="target/dependency/access-modifier-annotation-1.4.jar"/>
 	<classpathentry kind="lib" path="target/dependency/acegi-security-1.0.7.jar"/>
@@ -82,8 +83,6 @@
 	<classpathentry kind="lib" path="target/dependency/jenkins-war-1.509.4.war"/>
 	<classpathentry kind="lib" path="target/dependency/jetty-6.1.26.jar"/>
 	<classpathentry kind="lib" path="target/dependency/jetty-util-6.1.26.jar"/>
-	<classpathentry kind="lib" path="target/dependency/jffi-1.2.8-SNAPSHOT-native.jar"/>
-	<classpathentry kind="lib" path="target/dependency/jffi-1.2.8-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="target/dependency/jfreechart-1.0.9.jar"/>
 	<classpathentry kind="lib" path="target/dependency/jinterop-proxy-1.1.jar"/>
 	<classpathentry kind="lib" path="target/dependency/jinterop-wmi-1.1.jar"/>
@@ -213,5 +212,6 @@
 	<classpathentry kind="lib" path="target/dependency/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="target/dependency/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="target/dependency/xstream-1.4.4-jenkins-4.jar"/>
+	<classpathentry kind="lib" path="target/dependency/testng-6.8.jar"/>
 	<classpathentry kind="output" path="target/eclipse-classes"/>
 </classpath>
