@@ -14,6 +14,12 @@ class SBuild(implicit _project: Project) {
   }
 
   Target("phony:release") exec {
+    println("*************************************************")
+    println("*** ENSURE TO HAVE CACHED GITHUB CREDENTIALS  ***")
+    println("*** e.g. by running 'git fetch' or 'git push' ***")
+    println("*** waiting 5 seconds...                      ***")
+    println("*************************************************")
+    Thread.sleep(5000)
     addons.support.ForkSupport.runAndWait(
       command = Array("mvn", "-s", "maven-settings.xml", "release:prepare", "release:perform")
     )
