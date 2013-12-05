@@ -14,4 +14,8 @@
     description="Select the targets to run, separated by a space">
     <f:textbox />
   </f:entry>
+  <f:entry title="Extra Options" field="options"
+    description="Additional commandline options for SBuild.">
+    <f:textbox />
+  </f:entry>
 </j:jelly>

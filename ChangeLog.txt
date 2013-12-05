@@ -1,6 +1,7 @@
 Jenkins SBuild Plugin 0.1.2:
 
 * In project configuration only provide already configured SBuild installations for selection.
+* Added configuration field for extra options.
 
 Jenkins SBuild Plugin 0.1.1 - 2013-12-04:
 

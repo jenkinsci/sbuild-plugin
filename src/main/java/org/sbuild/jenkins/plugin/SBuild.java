@@ -29,13 +29,16 @@ public class SBuild extends Builder {
 
 	private final String buildFiles;
 
+	private final String options;
+
 	// Fields in config.jelly must match the parameter names in the
 	// "DataBoundConstructor"
 	@DataBoundConstructor
-	public SBuild(String sbuildVersion, String targets, String buildFiles) {
+	public SBuild(String sbuildVersion, String targets, String buildFiles, String options) {
 		this.sbuildVersion = sbuildVersion;
 		this.targets = targets;
 		this.buildFiles = buildFiles;
+		this.options = options;
 	}
 
 	public String getSbuildVersion() {
@@ -45,9 +48,13 @@ public class SBuild extends Builder {
 	public String getTargets() {
 		return targets;
 	}
-	
+
 	public String getBuildFiles() {
 		return buildFiles;
+	}
+
+	public String getOptions() {
+		return options;
 	}
 
 	public Optional<SBuildInstallation> getSBuild() {
@@ -117,6 +124,7 @@ public class SBuild extends Builder {
 			buildFilesToUse.add("SBuild.scala");
 		}
 
+		// TODO: Better split
 		for (String file : buildFilesToUse) {
 			FilePath buildFilePath = build.getModuleRoot().child(file);
 			if (!buildFilePath.exists()) {
@@ -124,6 +132,18 @@ public class SBuild extends Builder {
 			}
 		}
 
+		// TODO: Better split
+		if (options != null) {
+			String[] ts = options.trim().split(" ");
+			for (String target : ts) {
+				target = env.expand(target.trim());
+				if (target.length() > 0) {
+					args.add(target);
+				}
+			}
+		}
+
+		// TODO: Better split
 		if (targets != null) {
 			String[] ts = targets.trim().split(" ");
 			for (String target : ts) {
