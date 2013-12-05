@@ -1,4 +1,4 @@
-Jenkins SBuild Plugin 0.1.2:
+Jenkins SBuild Plugin 0.1.2 - 2013-12-05:
 
 * Only provide already configured SBuild installations/versions for selection.
 * Added configuration field for extra options.
