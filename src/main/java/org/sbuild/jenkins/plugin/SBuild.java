@@ -42,11 +42,12 @@ public class SBuild extends Builder {
 		return sbuildVersion;
 	}
 
-	/**
-	 * We'll use this from the <tt>config.jelly</tt>.
-	 */
 	public String getTargets() {
 		return targets;
+	}
+	
+	public String getBuildFiles() {
+		return buildFiles;
 	}
 
 	public Optional<SBuildInstallation> getSBuild() {

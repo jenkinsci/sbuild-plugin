@@ -1,3 +1,7 @@
+Jenkins SBuild Plugin 0.1.2:
+
+* In project configuration only provide already configured SBuild installations for selection.
+
 Jenkins SBuild Plugin 0.1.1 - 2013-12-04:
 
 (no changes, only fighting with maven-relase-plugin)
