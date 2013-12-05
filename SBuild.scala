@@ -3,15 +3,15 @@ import de.tototec.sbuild._
 @version("0.6.0.9004")
 class SBuild(implicit _project: Project) {
 
-  Target("phony:clean") exec {
-    Path("target").deleteRecursive
-  }
-
-  Target("phony:all") exec {
+  def mvn(args: String*) {
     addons.support.ForkSupport.runAndWait(
-      command = Array("mvn", "-s", "maven-settings.xml", "package")
+      command = Array("mvn", "-s", "maven-settings.xml") ++ args
     )
   }
+
+  Target("phony:clean") exec { Path("target").deleteRecursive }
+  Target("phony:all") exec { mvn("package") }
+  Target("phony:test") exec { mvn("test") }
 
   Target("phony:release") exec {
     println("*************************************************")
@@ -20,9 +20,7 @@ class SBuild(implicit _project: Project) {
     println("*** waiting 5 seconds...                      ***")
     println("*************************************************")
     Thread.sleep(5000)
-    addons.support.ForkSupport.runAndWait(
-      command = Array("mvn", "-s", "maven-settings.xml", "release:prepare", "release:perform")
-    )
+    mvn("release:prepare", "release:perform")
   }
 
 }
