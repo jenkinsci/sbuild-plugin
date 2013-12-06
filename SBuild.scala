@@ -1,6 +1,6 @@
 import de.tototec.sbuild._
 
-@version("0.6.0.9004")
+@version("0.6.0")
 class SBuild(implicit _project: Project) {
 
   def mvn(args: String*) {
