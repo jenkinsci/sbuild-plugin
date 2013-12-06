@@ -1,8 +1,15 @@
-= Jenkins SBuild Plugin
+Jenkins SBuild Plugin
+=====================
+
+About
+-----
 
 This Jenkins plugin enables support for SBuild projects and allows Jenkins to directly execute SBuild targets.
+For more information about this plugin please visit the plugins page on Jenkins http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin[wiki].
 
-SBuild: http://sbuild.tototec.de
+For more information about the SBuild build system please visit http://sbuild.tototec.de.
 
-Plugin Home page: http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin
+Contact
+-------
 
+Follow me on https://twitter.com/TobiasRoeser[Twitter] or https://github.com/lefou[Github].
