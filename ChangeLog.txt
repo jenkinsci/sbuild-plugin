@@ -1,3 +1,7 @@
+Jenkins SBuild Plugin [master]:
+
+* Added reference to SBuild 0.7.0.
+
 Jenkins SBuild Plugin 0.1.2 - 2013-12-05:
 
 * Only provide already configured SBuild installations/versions for selection.
