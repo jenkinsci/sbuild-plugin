@@ -1,3 +1,7 @@
+Jenkins SBuild Plugin 1.0.1 - 2013-12-21:
+
+* Added reference to SBuild 0.7.1.
+
 Jenkins SBuild Plugin 1.0.0 - 2013-12-06:
 
 * Added reference to SBuild 0.7.0.

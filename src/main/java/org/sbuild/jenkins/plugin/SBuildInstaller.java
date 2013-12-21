@@ -51,6 +51,7 @@ public class SBuildInstaller extends DownloadFromUrlInstaller {
 		@Override
 		public List<? extends Installable> getInstallables() throws IOException {
 			final String[][] matrix = new String[][] {
+					{ "0.7.1", "http://sbuild.tototec.de/sbuild/attachments/download/87/sbuild-0.7.1-dist.zip" },
 					{ "0.7.0", "http://sbuild.tototec.de/sbuild/attachments/download/82/sbuild-0.7.0-dist.zip" },
 					{ "0.6.0", "http://sbuild.tototec.de/sbuild/attachments/download/75/sbuild-0.6.0-dist.zip" },
 					{ "0.5.0", "http://sbuild.tototec.de/sbuild/attachments/download/71/sbuild-0.5.0-dist.zip" },
