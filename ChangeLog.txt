@@ -1,3 +1,7 @@
+Jenkins SBuild Plugin 1.0.2 - 2014-03-21:
+
+* Changed to crawler-based tools installer.
+
 Jenkins SBuild Plugin 1.0.1 - 2013-12-21:
 
 * Added reference to SBuild 0.7.1.
