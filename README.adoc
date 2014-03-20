@@ -5,7 +5,7 @@ About
 -----
 
 This Jenkins plugin enables support for SBuild projects and allows Jenkins to directly execute SBuild targets.
-For more information about this plugin please visit the plugins page on Jenkins http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin[wiki].
+For more information about this plugin please visit the plugins page on http://wiki.jenkins-ci.org/display/JENKINS/SBuild+Plugin[Jenkins wiki].
 
 For more information about the SBuild build system please visit http://sbuild.org.
 
