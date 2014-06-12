@@ -12,4 +12,4 @@ For more information about the SBuild build system please visit http://sbuild.or
 Contact
 -------
 
-Follow me on https://twitter.com/TobiasRoeser[Twitter] or https://github.com/lefou[Github].
+Follow Tobias Roeser on https://twitter.com/TobiasRoeser[Twitter] or https://github.com/lefou[Github].
